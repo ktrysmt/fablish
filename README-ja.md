@@ -104,11 +104,32 @@ Anthropic による長期エージェント工学に関する文書:
 - [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
   — エージェントは進捗ノートを読み、状態を再検証してから作業を再開する
   というハーネス設計。state.md からの再開ルールの根拠。
+- [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+  — orchestrator-workers と evaluator-optimizer パターン（Phase 1 の
+  委譲、Phase 3 の検証・修正ループ）。「可能な限り単純な解を探し、
+  必要な場合にのみ複雑さを足す」はエスケープハッチの根拠。
+- [How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)
+  — 「各サブエージェントには目的、出力形式、使うツールとソースの指針、
+  明確なタスク境界が必要」。委譲プロンプトテンプレート
+  （CONTEXT / SCOPE / BOUNDARIES / RETURN）の根拠。並行サブエージェント
+  が幅優先に分解できる作業で優位になる理由も。
+- [Claude Code best practices](https://code.claude.com/docs/en/best-practices)
+  — エージェントには実行可能なチェックを与え、成功を主張させるのでは
+  なくエビデンスを示させる（DONE-CRITERIA とチェックポイントの根拠）。
+  フレッシュなサブエージェントによる敵対的レビューは「diff と与えられた
+  基準だけを見て、変更を生んだ推論は見ない」（Phase 3 の根拠）。
+  「diff を一文で説明できるなら計画は省け」（エスケープハッチの根拠）。
+
+裏付けとなる研究:
+
+- Huang et al., [Large Language Models Cannot Self-Correct Reasoning Yet](https://arxiv.org/abs/2310.01798)
+  (ICLR 2024) — LLM は外部フィードバックなしには自身の推論を確実に
+  修正できない。自己批評ではなく外部のフレッシュコンテキストレビュアー
+  に検証を委ねる設計の前提。
 
 後続の改訂の比較対象にしたソース:
 
-- [toffyui/ccteams](https://github.com/toffyui/ccteams) と付随する
-  [解説記事](https://zenn.dev/yui/articles/e4f8268ab5c6c1)
+- [toffyui/ccteams](https://github.com/toffyui/ccteams)
   — 三段階エビデンスラベル（VERIFIED / REASONED / ASSUMED）と最リスク
   仮定の先行検証の出典。v0.2.0 で採用。
 - [Claude Code memory](https://code.claude.com/docs/en/memory.md) と
