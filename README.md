@@ -21,7 +21,9 @@ makes the agent:
 4. Verify completion through a fresh-context reviewer that sees only the
    DONE-CRITERIA and artifacts, never the working narrative
 5. Report by re-grounding: outcome first, evidence per criterion
-6. Persist lessons across tasks in `.task/lessons/`
+6. Feed universal, protocol-level insights back upstream as GitHub
+   issues on ktrysmt/fablish (one insight per issue, following the
+   repo's issue template) instead of keeping a local memory pool
 
 Trivial work (single-file edits, lookups) is explicitly exempted via an
 escape hatch, so the protocol does not add ceremony where none is needed.
@@ -53,9 +55,13 @@ default for all long-horizon tasks, add a rule like this to your global
 ## Working files
 
 The skill keeps its state in a `.task/` directory at the project root
-(`state.md` for the current task contract and checkpoints, `lessons/`
-for persistent cross-task notes) and registers it in `.git/info/exclude`
-so it is never committed.
+(`state.md` for the current task contract and checkpoints) and registers
+it in `.git/info/exclude` so it is never committed. State is scoped to a
+single task on purpose: the skill maintains no cross-task memory pool,
+because unreviewed persistent memory goes stale and biases future runs.
+Durable insights leave through review instead — universal ones as GitHub
+issues on this repo, project-specific ones into that project's CLAUDE.md
+or knowledge base.
 
 ## Notes
 
