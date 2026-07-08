@@ -10,7 +10,8 @@ Order:
 
 1. Outcome — one or two sentences: what happened / what you found
 2. Evidence per DONE-CRITERION — criterion, then how it was verified
-   (command and result, `file:line`, reviewer verdict)
+   (command and result, `file:line`, reviewer verdict), each claim
+   keeping its VERIFIED / REASONED / ASSUMED label
 3. Autonomous decisions — minor choices you made under the
    minor-choice rule: what you picked and why
 4. Open items — what failed, what was skipped, what needs the user

@@ -29,6 +29,9 @@ when available):
   fail" outperforms "confirm this is correct".
 - Output contract: per-criterion verdict PASS / FAIL / UNVERIFIABLE,
   each with the evidence that supports it.
+- Claim labels are inputs, not verdicts: VERIFIED / REASONED / ASSUMED
+  label the worker's claims; PASS / FAIL / UNVERIFIABLE are the
+  reviewer's verdicts. An ASSUMED claim can never support a PASS.
 
 ## Rubric template (non-executable deliverables)
 

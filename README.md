@@ -11,10 +11,13 @@ When a task is expected to span many tool calls (feature implementation,
 refactors, migrations, investigations, multi-file changes), this skill
 makes the agent:
 
-1. Write a task contract (GOAL / CONSTRAINTS / DONE-CRITERIA / NON-GOALS)
-   before any mutating tool call
-2. Decompose work by independence and delegate parallel workstreams
-3. Record evidence-grounded checkpoints so interrupted work can resume
+1. Write a task contract (GOAL / CONSTRAINTS / DONE-CRITERIA / NON-GOALS /
+   RISKIEST-ASSUMPTION) before any mutating tool call
+2. Decompose work by independence, delegate parallel workstreams, and
+   check the riskiest assumption first while invalidation is still cheap
+3. Record evidence-grounded checkpoints — each claim labeled VERIFIED /
+   REASONED / ASSUMED, never silently upgraded — so interrupted work can
+   resume
 4. Verify completion through a fresh-context reviewer that sees only the
    DONE-CRITERIA and artifacts, never the working narrative
 5. Report by re-grounding: outcome first, evidence per criterion

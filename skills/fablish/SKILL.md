@@ -54,6 +54,8 @@ Read `.task/lessons/` if it exists. Then write `.task/state.md`:
 - DONE-CRITERIA: 3–7 independently checkable criteria
   ("tests in X pass", "command Y exits 0" — not "code looks good")
 - NON-GOALS: adjacent work you will explicitly not do
+- RISKIEST-ASSUMPTION: the single assumption most likely to invalidate
+  the plan, plus the cheapest check that confirms or kills it
 
 Gate: if you cannot write checkable DONE-CRITERIA, ask ONE batched
 clarifying question, then proceed with stated assumptions. Never ask a
@@ -72,14 +74,20 @@ use a single `Agent` call. Work asynchronously: keep working while
 members run; intervene if one drifts. Do NOT delegate work you can
 complete directly in a single response.
 
+Sequence work so the RISKIEST-ASSUMPTION check runs first, while
+invalidation is still cheap — before any expensive workstream starts or
+is delegated. A plan killed after two minutes of reading is free.
+
 Details and the delegation prompt template: `references/delegation.md`
 
 ## Phase 2 — Execute with grounded checkpoints
 
 After each meaningful unit of work, append one checkpoint to
 `.task/state.md`: what was done, the tool-result evidence for it, and
-what is next. If interrupted or compacted, this file is the resume
-point — trust it over memory.
+what is next. Label every claim VERIFIED (executed and observed),
+REASONED (follows from code read, not executed), or ASSUMED (plausible,
+unchecked); never upgrade a label without new evidence. If interrupted
+or compacted, this file is the resume point — trust it over memory.
 
 ## Phase 3 — Verify with fresh context
 
