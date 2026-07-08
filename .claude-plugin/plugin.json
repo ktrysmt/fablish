@@ -1,6 +1,6 @@
 {
   "name": "fablish",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Contract-driven long-horizon execution protocol: goal contract before acting, decomposition into parallel workstreams, evidence-grounded checkpoints, fresh-context verification, re-grounded final reporting, and persistent lessons",
   "author": {
     "name": "ktrysmt"

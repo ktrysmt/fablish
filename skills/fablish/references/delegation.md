@@ -37,8 +37,9 @@ Every delegation prompt must carry, in this order:
 3. BOUNDARIES — files/directories it may modify; everything else is
    read-only. Name them explicitly.
 4. RETURN — exactly what to report back: artifacts produced, paths,
-   evidence per criterion, open questions. Its final message is the
-   only thing you receive — say so in the prompt.
+   evidence per criterion with each claim labeled VERIFIED / REASONED /
+   ASSUMED, open questions. Its final message is the only thing you
+   receive — say so in the prompt.
 
 ## Async supervision
 
@@ -46,7 +47,8 @@ Every delegation prompt must carry, in this order:
   they run. Do not block idle on the slowest member.
 - On each member result: check its evidence against its DONE-CRITERIA
   before integrating. A member's "done" without evidence is not done —
-  re-verify yourself or send it back.
+  re-verify yourself or send it back. A criterion supported only by
+  REASONED or ASSUMED claims counts as unverified.
 - Drift intervention: if a member's output shows it misread scope, send
   a correction via `SendMessage` quoting the specific contract line it
   violated. Do not silently redo its work — corrected members keep
