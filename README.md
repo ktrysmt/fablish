@@ -104,11 +104,34 @@ Anthropic, on long-horizon agent engineering:
 - [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
   — agents resume by reading a progress-notes file and re-verifying
   state before new work; grounds the resume-from-state.md rule.
+- [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+  — the orchestrator-workers and evaluator-optimizer patterns (Phase 1
+  delegation; the Phase 3 verify-fix loop), and "finding the simplest
+  solution possible, and only increasing complexity when needed" (the
+  escape hatch).
+- [How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)
+  — "each subagent needs an objective, an output format, guidance on
+  the tools and sources to use, and clear task boundaries": grounds the
+  delegation prompt template (CONTEXT / SCOPE / BOUNDARIES / RETURN),
+  and why parallel subagents win on breadth-first decomposable work.
+- [Claude Code best practices](https://code.claude.com/docs/en/best-practices)
+  — give the agent a check it can run, and have it show evidence rather
+  than assert success (DONE-CRITERIA, checkpoints); an adversarial
+  reviewer in a fresh subagent context "sees only the diff and the
+  criteria you give it, not the reasoning that produced the change"
+  (Phase 3); "if you could describe the diff in one sentence, skip the
+  plan" (the escape hatch).
+
+Supporting research:
+
+- Huang et al., [Large Language Models Cannot Self-Correct Reasoning Yet](https://arxiv.org/abs/2310.01798)
+  (ICLR 2024) — LLMs do not reliably correct their own reasoning
+  without external feedback; the premise for routing verification
+  through an external fresh-context reviewer instead of self-critique.
 
 Comparative sources behind later revisions:
 
-- [toffyui/ccteams](https://github.com/toffyui/ccteams) and its
-  accompanying [article (Japanese)](https://zenn.dev/yui/articles/e4f8268ab5c6c1)
+- [toffyui/ccteams](https://github.com/toffyui/ccteams)
   — origin of the three-tier evidence labels (VERIFIED / REASONED /
   ASSUMED) and riskiest-assumption-first sequencing, adopted in v0.2.0.
 - [Claude Code memory](https://code.claude.com/docs/en/memory.md) and
