@@ -73,6 +73,50 @@ or knowledge base.
 - On Fable-class models the phases act as reminders; on other models
   (Opus, Sonnet, Haiku) each phase gate is followed explicitly.
 
+## References
+
+fablish is a procedural transcription of publicly documented behavior.
+These are the sources the design was built and revised against.
+
+Anthropic, on Fable 5's working style:
+
+- [Introducing Claude Fable 5 and Claude Mythos 5](https://www.anthropic.com/news/claude-fable-5-mythos-5)
+  — long-horizon autonomy; the model "improves its outputs using its
+  own notes"; in the Slay the Spire evaluation, persistent file-based
+  memory improved performance three times more than for Opus 4.8.
+- [Claude Fable 5 & Claude Mythos 5 System Card](https://anthropic.com/claude-fable-5-mythos-5-system-card)
+  — primary documentation of the model's behavior and evaluations.
+- [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5)
+  — the most load-bearing source. Grounds: auditing progress claims
+  against tool results (Phase 2 checkpoints), "separate, fresh-context
+  verifier subagents tend to outperform self-critique" (Phase 3),
+  parallel subagents with asynchronous supervision (Phase 1), acting
+  on sufficiency and never ending a turn on a promise, re-grounded
+  final communication for a reader who saw none of the work (Phase 4),
+  and recording lessons from runs (Lessons routing).
+
+Anthropic, on long-horizon agent engineering:
+
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+  — compaction, structured note-taking, and sub-agent architectures as
+  the techniques for working beyond one context window; grounds the
+  `.task/state.md` checkpoint design.
+- [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
+  — agents resume by reading a progress-notes file and re-verifying
+  state before new work; grounds the resume-from-state.md rule.
+
+Comparative sources behind later revisions:
+
+- [toffyui/ccteams](https://github.com/toffyui/ccteams) and its
+  accompanying [article (Japanese)](https://zenn.dev/yui/articles/e4f8268ab5c6c1)
+  — origin of the three-tier evidence labels (VERIFIED / REASONED /
+  ASSUMED) and riskiest-assumption-first sequencing, adopted in v0.2.0.
+- [Claude Code memory](https://code.claude.com/docs/en/memory.md) and
+  the [memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool.md)
+  — surveyed for v0.3.0's decision to keep no local cross-task memory
+  pool (unreviewed memory goes stale and biases future runs) and to
+  route durable insights through reviewed channels instead.
+
 ## License
 
 MIT
