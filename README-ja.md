@@ -73,6 +73,50 @@ CLAUDE.mdや知識ベースへ）。
   モデル（Opus、Sonnet、Haiku）では各フェーズのゲートを明示的に
   順番どおりに実行します。
 
+## 参考文献
+
+fablish は公開ドキュメントに記述された挙動の手続き的な転写です。設計と
+改訂の根拠にしたソースを挙げます。
+
+Anthropic による Fable 5 の仕事の進め方に関する文書:
+
+- [Introducing Claude Fable 5 and Claude Mythos 5](https://www.anthropic.com/news/claude-fable-5-mythos-5)
+  — 長期タスクの自律性。「自分自身のノートを使って出力を改善する」、
+  Slay the Spire の評価では永続的なファイルベースのメモリによる性能向上
+  幅が Opus 4.8 の3倍だったとの記述。
+- [Claude Fable 5 & Claude Mythos 5 System Card](https://anthropic.com/claude-fable-5-mythos-5-system-card)
+  — モデルの挙動と評価に関する一次ドキュメント。
+- [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5)
+  — 最も設計根拠として重いソース。進捗主張をツール結果と突き合わせて
+  監査する（Phase 2 のチェックポイント）、「独立したフレッシュコンテキ
+  ストの検証サブエージェントは自己批評を上回る傾向がある」（Phase 3）、
+  非同期監督つきの並行サブエージェント（Phase 1）、十分な情報が揃った
+  ら行動し約束でターンを終えない、作業を見ていない読者に向けた再接地
+  型の最終報告（Phase 4）、実行から得た教訓の記録（Lessons の経路設計）
+  の各根拠。
+
+Anthropic による長期エージェント工学に関する文書:
+
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+  — コンパクション、構造化ノートテイキング、サブエージェント構成という
+  コンテキストウィンドウを超えて働くための技法。`.task/state.md` の
+  チェックポイント設計の根拠。
+- [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
+  — エージェントは進捗ノートを読み、状態を再検証してから作業を再開する
+  というハーネス設計。state.md からの再開ルールの根拠。
+
+後続の改訂の比較対象にしたソース:
+
+- [toffyui/ccteams](https://github.com/toffyui/ccteams) と付随する
+  [解説記事](https://zenn.dev/yui/articles/e4f8268ab5c6c1)
+  — 三段階エビデンスラベル（VERIFIED / REASONED / ASSUMED）と最リスク
+  仮定の先行検証の出典。v0.2.0 で採用。
+- [Claude Code memory](https://code.claude.com/docs/en/memory.md) と
+  [memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool.md)
+  — v0.3.0 で「ローカルのタスク横断メモリプールを持たない（無審査の
+  記憶は陳腐化しバイアスになる）」と判断した際の調査対象。恒久的な
+  知見はレビューを通る経路（issue 起票等）に流す設計の背景。
+
 ## ライセンス
 
 MIT
