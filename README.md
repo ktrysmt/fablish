@@ -61,15 +61,20 @@ default for all long-horizon tasks, add a rule like this to your global
 
 ## Working files
 
-The skill keeps its state in a `.task/` directory at the project root
-(`state.md` for the current task contract and checkpoints) and registers
-it in `.git/info/exclude` so it is never committed. Cross-task lessons
-live separately in `.claude/lessons/` — committed and reviewed like any
-other change, and curated on every write (update over duplicate, delete
-what proves wrong) — because unreviewed persistent memory goes stale and
-biases future runs. Universal protocol insights leave, with explicit
-user confirmation, as GitHub issues on this repo; project-specific
-conventions go to that project's CLAUDE.md or knowledge base.
+The skill keeps its state in a session-scoped, volatile file at
+`/tmp/fablish/$CLAUDE_CODE_SESSION_ID/state.md` (the current task
+contract and checkpoints). Keying on the session id means concurrent
+sessions on the same repo never collide, and nothing ever enters the
+working tree — so there is no `.gitignore` or `.git/info/exclude` step,
+and no way to commit scratch state by accident. Resuming across app
+restarts is intentionally out of scope; durable memory lives elsewhere.
+Cross-task lessons live separately in `.claude/lessons/` — committed and
+reviewed like any other change, and curated on every write (update over
+duplicate, delete what proves wrong) — because unreviewed persistent
+memory goes stale and biases future runs. Universal protocol insights
+leave, with explicit user confirmation, as GitHub issues on this repo;
+project-specific conventions go to that project's CLAUDE.md or knowledge
+base.
 
 ## Notes
 
@@ -111,7 +116,7 @@ Anthropic, on long-horizon agent engineering:
 - [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
   — compaction, structured note-taking, and sub-agent architectures as
   the techniques for working beyond one context window; grounds the
-  `.task/state.md` checkpoint design.
+  `state.md` checkpoint design.
 - [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
   — agents resume by reading a progress-notes file and re-verifying
   state before new work; grounds the resume-from-state.md rule.

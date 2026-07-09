@@ -60,10 +60,15 @@ claude plugin install fablish@ktrysmt
 
 ## 作業ファイル
 
-スキルはプロジェクトルートの `.task/` ディレクトリに状態を保持します
-（`state.md` に現在のタスクコントラクトとチェックポイント）。
-`.git/info/exclude` に登録されるため、コミットされることはありません。
-タスク横断の教訓は別途 `.claude/lessons/` に置きます。通常の変更と同様に
+スキルは状態をセッション単位の揮発ファイル
+`/tmp/fablish/$CLAUDE_CODE_SESSION_ID/state.md` に保持します
+（現在のタスクコントラクトとチェックポイント）。セッションIDで分離する
+ため、同一リポジトリで並行するセッション同士が衝突せず、ワーキング
+ツリーにも一切入りません。したがって `.gitignore` や
+`.git/info/exclude` の登録は不要で、作業用の状態を誤ってコミットする
+余地もありません。アプリ再起動をまたぐ再開は意図的に対象外で、
+永続化したい記憶は別の場所に置きます。タスク横断の教訓は別途
+`.claude/lessons/` に置きます。通常の変更と同様に
 コミットされレビューされ、書き込みのたびにキュレーションされます
 （重複より更新、誤った教訓は削除）。レビューを経ない永続メモリは陳腐化
 して以後の実行にバイアスを与えるためです。普遍的でプロトコルレベルの
@@ -109,7 +114,7 @@ Anthropic による長期エージェント工学に関する文書:
 
 - [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
   — コンパクション、構造化ノートテイキング、サブエージェント構成という
-  コンテキストウィンドウを超えて働くための技法。`.task/state.md` の
+  コンテキストウィンドウを超えて働くための技法。`state.md` の
   チェックポイント設計の根拠。
 - [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
   — エージェントは進捗ノートを読み、状態を再検証してから作業を再開する

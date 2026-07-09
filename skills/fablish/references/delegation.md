@@ -33,7 +33,7 @@ Counter-rules:
 
 Every delegation prompt must carry, in this order:
 
-1. CONTEXT — the task contract from `.task/state.md` (GOAL and
+1. CONTEXT — the task contract from the state file (GOAL and
    CONSTRAINTS, verbatim), plus the intent behind it: why the task is
    being done and who consumes the result. Members do not see your
    conversation; this is their only source of intent.
