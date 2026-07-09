@@ -36,16 +36,22 @@ reminders — do not mechanically narrate each phase. On other models
 
 If, on reading the task, it clearly fits in a handful of tool calls
 (single-file edit, one lookup, a rename), say so in one sentence and
-proceed without this protocol. Do not create `.task/` artifacts for
+proceed without this protocol. Do not create a state file for
 trivial work.
 
 ## Working files
 
-- `.task/state.md` — task contract + checkpoints (current task only)
+- `/tmp/fablish/$CLAUDE_CODE_SESSION_ID/state.md` — task contract +
+  checkpoints (current task only). Resolve `$CLAUDE_CODE_SESSION_ID`
+  from the environment once at task start, then use the concrete path.
+  The location is session-scoped and volatile by design: it never
+  collides across concurrent sessions on one repo, and never enters the
+  working tree — so there is no `.gitignore` or `.git/info/exclude` step
+  and no risk of committing scratch state. Cross-session (app-restart)
+  resume is not a goal — durable memory goes to `.claude/lessons/` and
+  GitHub issues, not here.
 - `.claude/lessons/` — cross-task lessons, one file per lesson;
   committed and reviewed like any other change (see Lessons)
-- Ensure `.task/` is ignored via `.git/info/exclude` (not the shared
-  `.gitignore`); never commit it.
 
 ## Phase 0 — Task contract (before any mutating tool call)
 
@@ -57,7 +63,7 @@ apply fixes until asked.
 If the project has `.claude/lessons/`, read it now — prior lessons
 shape CONSTRAINTS and RISKIEST-ASSUMPTION.
 
-Write `.task/state.md`:
+Write the state file `/tmp/fablish/$CLAUDE_CODE_SESSION_ID/state.md`:
 
 - GOAL: the outcome in one sentence, phrased as the user would verify it
 - CONSTRAINTS: what must not change or be touched
@@ -100,7 +106,7 @@ Details and the delegation prompt template: `references/delegation.md`
 ## Phase 2 — Execute with grounded checkpoints
 
 After each meaningful unit of work, append one checkpoint to
-`.task/state.md`: what was done, the tool-result evidence for it, and
+the state file: what was done, the tool-result evidence for it, and
 what is next. Label every claim VERIFIED (executed and observed),
 REASONED (follows from code read, not executed), or ASSUMED (plausible,
 unchecked); never upgrade a label without new evidence. If interrupted
