@@ -28,6 +28,8 @@ knowledge base — not here.
 - [ ] Not mutable state (versions, branches, what is currently installed)
 - [ ] Not already covered by SKILL.md or references/
 - [ ] One insight only (file a separate issue for a second one)
+- [ ] User approved the exact issue title and body before filing (no
+  confidential project content)
 
 ## Proposed change (optional)
 

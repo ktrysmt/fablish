@@ -22,6 +22,9 @@ Counter-rules:
 - 2+ parallel workstreams → `TeamCreate`, one member per workstream
   (global CLAUDE.md rule: parallel bare `Agent` calls do not correctly
   inherit context such as CLAUDE.md).
+- `TeamCreate` not in the session's toolset → parallel `Agent` calls
+  batched in one message; the CONTEXT section of the template below
+  compensates for the context bare agents do not inherit.
 - Exactly one delegation → a single `Agent` call is acceptable.
 - Read-only exploration fan-out (finding files, mapping a subsystem) →
   Explore-type agents; they locate, they do not review.
@@ -31,12 +34,15 @@ Counter-rules:
 Every delegation prompt must carry, in this order:
 
 1. CONTEXT — the task contract from `.task/state.md` (GOAL and
-   CONSTRAINTS, verbatim). Members do not see your conversation; the
-   contract is their only source of intent.
+   CONSTRAINTS, verbatim), plus the intent behind it: why the task is
+   being done and who consumes the result. Members do not see your
+   conversation; this is their only source of intent.
 2. SCOPE — this workstream's own goal and its own DONE-CRITERIA.
 3. BOUNDARIES — files/directories it may modify; everything else is
    read-only. Name them explicitly.
-4. RETURN — exactly what to report back: artifacts produced, paths,
+4. TOOLS — the tools, commands, and sources to prefer or avoid, when
+   not obvious from the scope.
+5. RETURN — exactly what to report back: artifacts produced, paths,
    evidence per criterion with each claim labeled VERIFIED / REASONED /
    ASSUMED, open questions. Its final message is the only thing you
    receive — say so in the prompt.
