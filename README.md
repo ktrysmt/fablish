@@ -11,19 +11,26 @@ When a task is expected to span many tool calls (feature implementation,
 refactors, migrations, investigations, multi-file changes), this skill
 makes the agent:
 
-1. Write a task contract (GOAL / CONSTRAINTS / DONE-CRITERIA / NON-GOALS /
-   RISKIEST-ASSUMPTION) before any mutating tool call
-2. Decompose work by independence, delegate parallel workstreams, and
-   check the riskiest assumption first while invalidation is still cheap
-3. Record evidence-grounded checkpoints — each claim labeled VERIFIED /
+1. Decide first whether a change was requested at all — a described
+   problem gets an assessment, not a fix
+2. Write a task contract (GOAL / CONSTRAINTS / DONE-CRITERIA / CHECK /
+   NON-GOALS / RISKIEST-ASSUMPTION) before any mutating tool call
+3. Decompose work by independence, delegate parallel workstreams
+   (falling back to batched parallel `Agent` calls when `TeamCreate` is
+   absent), and check the riskiest assumption first while invalidation
+   is still cheap
+4. Record evidence-grounded checkpoints — each claim labeled VERIFIED /
    REASONED / ASSUMED, never silently upgraded — so interrupted work can
-   resume
-4. Verify completion through a fresh-context reviewer that sees only the
-   DONE-CRITERIA and artifacts, never the working narrative
-5. Report by re-grounding: outcome first, evidence per criterion
-6. Feed universal, protocol-level insights back upstream as GitHub
-   issues on ktrysmt/fablish (one insight per issue, following the
-   repo's issue template) instead of keeping a local memory pool
+   resume, and verify at intervals on long runs so failures surface
+   while they are cheap
+5. Verify completion through a fresh-context reviewer that sees only the
+   DONE-CRITERIA and artifacts, never the working narrative — scaling to
+   majority-vote independent reviewers for audit-grade work
+6. Report by re-grounding: outcome first, evidence per criterion
+7. Keep lessons in a curated, committed `.claude/lessons/` store (update
+   over duplicate, delete what proves wrong) and, with explicit user
+   confirmation, upstream universal protocol insights as GitHub issues
+   on ktrysmt/fablish
 
 Trivial work (single-file edits, lookups) is explicitly exempted via an
 escape hatch, so the protocol does not add ceremony where none is needed.
@@ -56,20 +63,22 @@ default for all long-horizon tasks, add a rule like this to your global
 
 The skill keeps its state in a `.task/` directory at the project root
 (`state.md` for the current task contract and checkpoints) and registers
-it in `.git/info/exclude` so it is never committed. State is scoped to a
-single task on purpose: the skill maintains no cross-task memory pool,
-because unreviewed persistent memory goes stale and biases future runs.
-Durable insights leave through review instead — universal ones as GitHub
-issues on this repo, project-specific ones into that project's CLAUDE.md
-or knowledge base.
+it in `.git/info/exclude` so it is never committed. Cross-task lessons
+live separately in `.claude/lessons/` — committed and reviewed like any
+other change, and curated on every write (update over duplicate, delete
+what proves wrong) — because unreviewed persistent memory goes stale and
+biases future runs. Universal protocol insights leave, with explicit
+user confirmation, as GitHub issues on this repo; project-specific
+conventions go to that project's CLAUDE.md or knowledge base.
 
 ## Notes
 
 - The skill references Tier-1 invariants (grounded claims, act on
   sufficiency, no promissory endings, minor-choice autonomy) and a
   TeamCreate-over-parallel-subagents rule assumed to live in your global
-  CLAUDE.md. It degrades gracefully without them, but works best when
-  those rules are present.
+  CLAUDE.md. It degrades gracefully without them: when `TeamCreate` is
+  not in the session's toolset, delegation falls back to parallel
+  `Agent` calls batched in one message.
 - On Fable-class models the phases act as reminders; on other models
   (Opus, Sonnet, Haiku) each phase gate is followed explicitly.
 
@@ -93,7 +102,9 @@ Anthropic, on Fable 5's working style:
   parallel subagents with asynchronous supervision (Phase 1), acting
   on sufficiency and never ending a turn on a promise, re-grounded
   final communication for a reader who saw none of the work (Phase 4),
-  and recording lessons from runs (Lessons routing).
+  and constructing a curated memory of lessons from runs (the
+  `.claude/lessons/` store). Issue-based upstreaming is this skill's
+  own mechanism, not a documented Fable behavior.
 
 Anthropic, on long-horizon agent engineering:
 
@@ -112,7 +123,8 @@ Anthropic, on long-horizon agent engineering:
 - [How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)
   — "each subagent needs an objective, an output format, guidance on
   the tools and sources to use, and clear task boundaries": grounds the
-  delegation prompt template (CONTEXT / SCOPE / BOUNDARIES / RETURN),
+  delegation prompt template (CONTEXT / SCOPE / BOUNDARIES / TOOLS /
+  RETURN),
   and why parallel subagents win on breadth-first decomposable work.
 - [Claude Code best practices](https://code.claude.com/docs/en/best-practices)
   — give the agent a check it can run, and have it show evidence rather
@@ -137,8 +149,10 @@ Comparative sources behind later revisions:
 - [Claude Code memory](https://code.claude.com/docs/en/memory.md) and
   the [memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool.md)
   — surveyed for v0.3.0's decision to keep no local cross-task memory
-  pool (unreviewed memory goes stale and biases future runs) and to
-  route durable insights through reviewed channels instead.
+  pool, revisited in v0.4.0: the local store returned as a curated,
+  committed `.claude/lessons/` directory (per the prompting guide's
+  memory-system guidance), kept reviewed so it cannot silently go
+  stale.
 
 ## License
 

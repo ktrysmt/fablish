@@ -15,6 +15,14 @@ work is done. Preference order:
 If the changed behavior has no test coverage and adding a check is
 cheap, add it as part of the work — it becomes a DONE-CRITERION.
 
+## Interval verification (long runs)
+
+Decide the cadence in Phase 0: every few checkpoints, or whenever a
+workstream lands. At each interval, run the fresh-context check below
+against the criteria that should already hold, and record the verdict
+in the checkpoint. A criterion that passed at an interval re-runs in
+the final pass if later work touched what it checks.
+
 ## Fresh-context review
 
 Self-critique inside a long working context is unreliable — the working
@@ -32,6 +40,15 @@ when available):
 - Claim labels are inputs, not verdicts: VERIFIED / REASONED / ASSUMED
   label the worker's claims; PASS / FAIL / UNVERIFIABLE are the
   reviewer's verdicts. An ASSUMED claim can never support a PASS.
+
+## Scale rigor to the ask
+
+- Default: one fresh-context reviewer.
+- Audit-grade asks ("thoroughly", "comprehensive", security-sensitive)
+  or hard-to-reverse changes: three independent reviewers given the
+  same criteria; a criterion passes only on a majority. Distinct
+  lenses (correctness, security, does-it-reproduce) catch more than
+  three identical reviewers.
 
 ## Rubric template (non-executable deliverables)
 

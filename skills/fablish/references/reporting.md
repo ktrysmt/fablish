@@ -30,7 +30,9 @@ Order:
 
 ## During the work
 
-Between tool calls, default to silence. Write one sentence when you
+Before the first tool call, say in one sentence what you are about to
+do — this one upfront sentence is the exception to the narration rule
+below. Between tool calls, default to silence. Write one sentence when you
 find something load-bearing, change direction, or hit a blocker. Do not
 narrate routine actions ("Now I'll...", "Let me check..."). Progress
 updates follow the global grounded-claims rule: point at evidence, or
