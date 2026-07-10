@@ -11,6 +11,7 @@ description: >-
   multi-file changes), or when the user invokes /fablish. Do NOT trigger
   for single-file edits, lookups, or conversational questions.
 argument-hint: "[task description]"
+disable-model-invocation: true
 ---
 
 # fablish — long-horizon execution protocol
