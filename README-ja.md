@@ -43,20 +43,17 @@ claude plugin install fablish@ktrysmt
 
 ## 使い方
 
-明示的に呼び出す場合:
+明示的に呼び出します:
 
 ```
 /fablish <タスクの説明>
 ```
 
-複数ステップの作業では自動トリガーもされます。すべての長期タスクで
-既定にしたい場合は、グローバルの `~/.claude/CLAUDE.md` に次のような
-ルールを追加してください。
-
-```markdown
-- Long-horizon tasks: For multi-step work expected to span many tool
-  calls, invoke the `fablish` skill before starting
-```
+`fablish` は明示呼び出し専用です。自動トリガーはされず、Claude が
+自分でロードすることもありません。`/fablish` と入力するのが唯一の
+実行方法です。多数のツール呼び出しにまたがる複数ステップの作業
+（機能実装、リファクタリング、マイグレーション、調査、複数ファイル
+にわたる変更）の開始時に使ってください。
 
 ## 作業ファイル
 

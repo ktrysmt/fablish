@@ -44,20 +44,17 @@ claude plugin install fablish@ktrysmt
 
 ## Usage
 
-Invoke explicitly:
+Invoke it explicitly:
 
 ```
 /fablish <task description>
 ```
 
-or let it trigger automatically on multi-step work. To make it the
-default for all long-horizon tasks, add a rule like this to your global
-`~/.claude/CLAUDE.md`:
-
-```markdown
-- Long-horizon tasks: For multi-step work expected to span many tool
-  calls, invoke the `fablish` skill before starting
-```
+`fablish` is invoke-only: it never triggers automatically, and Claude
+cannot load it on its own — typing `/fablish` is the only way to run it.
+Reach for it at the start of multi-step work expected to span many tool
+calls: feature implementation, refactors, migrations, investigations, or
+multi-file changes.
 
 ## Working files
 
