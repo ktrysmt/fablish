@@ -73,6 +73,11 @@ Write the state file `/tmp/fablish/$CLAUDE_CODE_SESSION_ID/state.md`:
 - CHECK: how completion will be verified (method per
   references/verification.md) and, on long runs, the interval cadence
 - NON-GOALS: adjacent work you will explicitly not do
+- REJECTED-DELIVERABLES: success-shaped outcomes that do not count
+  (fixes only the reported instance, moves the difficulty into an
+  unowned component, demonstrates a subset and extrapolates). NON-GOALS
+  bound the scope; this list guards the GOAL against substitution.
+  Omit only when no plausible near-miss exists.
 - RISKIEST-ASSUMPTION: the single assumption most likely to invalidate
   the plan, plus the cheapest check that confirms or kills it
 
@@ -123,8 +128,10 @@ FAIL found at the end is not.
 
 Before declaring completion, run the checking method decided in Phase 0
 (test run, lint, diff review, rubric grading) through a fresh-context
-reviewer that receives ONLY the DONE-CRITERIA and the artifacts — never
-your working narrative. Fresh verifiers outperform self-critique.
+reviewer that receives ONLY the acceptance surface — DONE-CRITERIA,
+REJECTED-DELIVERABLES, the domain failure-mode checklist — and the
+artifacts, never your working narrative. Fresh verifiers outperform
+self-critique.
 Scale rigor to the stakes: one reviewer by default, independent
 majority-vote reviewers for audit-grade or hard-to-reverse work.
 Iterate until every criterion passes, or state precisely which criteria

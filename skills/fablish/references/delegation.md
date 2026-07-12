@@ -33,15 +33,19 @@ Counter-rules:
 
 Every delegation prompt must carry, in this order:
 
-1. CONTEXT — the task contract from the state file (GOAL and
-   CONSTRAINTS, verbatim), plus the intent behind it: why the task is
-   being done and who consumes the result. Members do not see your
-   conversation; this is their only source of intent.
+1. CONTEXT — the task contract from the state file (GOAL, CONSTRAINTS,
+   and REJECTED-DELIVERABLES, verbatim), plus the intent behind it:
+   why the task is being done and who consumes the result. Members do
+   not see your conversation; this is their only source of intent.
 2. SCOPE — this workstream's own goal and its own DONE-CRITERIA.
 3. BOUNDARIES — files/directories it may modify; everything else is
    read-only. Name them explicitly.
 4. TOOLS — the tools, commands, and sources to prefer or avoid, when
-   not obvious from the scope.
+   not obvious from the scope. When the workstream verifies or
+   reproduces something, state search hygiene explicitly: consulting
+   the conclusion it is meant to check contaminates it (background
+   material is fine), and a search result saying "known issue" or
+   "known hard" is evidence to report, not grounds to stop work.
 5. RETURN — exactly what to report back: artifacts produced, paths,
    evidence per criterion with each claim labeled VERIFIED / REASONED /
    ASSUMED, open questions. Its final message is the only thing you
@@ -54,7 +58,9 @@ Every delegation prompt must carry, in this order:
 - On each member result: check its evidence against its DONE-CRITERIA
   before integrating. A member's "done" without evidence is not done —
   re-verify yourself or send it back. A criterion supported only by
-  REASONED or ASSUMED claims counts as unverified.
+  REASONED or ASSUMED claims counts as unverified. A result matching a
+  REJECTED-DELIVERABLES entry goes back with the entry quoted, whatever
+  its criteria say.
 - Drift intervention: if a member's output shows it misread scope, send
   a correction via `SendMessage` quoting the specific contract line it
   violated. Do not silently redo its work — corrected members keep
