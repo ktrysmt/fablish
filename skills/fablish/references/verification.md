@@ -30,7 +30,8 @@ narrative biases the review toward confirming it. Run verification
 through a fresh-context reviewer (an `Agent` call; read-only agent type
 when available):
 
-- Input: the DONE-CRITERIA verbatim, plus concrete artifacts (diff,
+- Input: the DONE-CRITERIA and REJECTED-DELIVERABLES verbatim, the
+  domain failure-mode checklist (below), plus concrete artifacts (diff,
   file paths, command outputs). NEVER include your working narrative,
   hypotheses, or self-assessment — that contaminates the review.
 - Instruction: adversarial framing. "Try to find where these criteria
@@ -40,6 +41,31 @@ when available):
 - Claim labels are inputs, not verdicts: VERIFIED / REASONED / ASSUMED
   label the worker's claims; PASS / FAIL / UNVERIFIABLE are the
   reviewer's verdicts. An ASSUMED claim can never support a PASS.
+
+## Domain failure-mode checklist
+
+Generic adversarial framing misses domain-specific counterfeits. While
+building the harness (Phase 0), derive 3–7 ways this kind of
+deliverable characteristically fails, and hand the list to every
+reviewer alongside the criteria. Examples:
+
+- Code change: narrows the input space silently, weakens or deletes a
+  test to make it pass, handles the reproduced case but not its class
+- Migration: rows dropped or duplicated at chunk boundaries, no checked
+  rollback, mixed-version window ignored
+- Analysis: a claim supported by its own restatement, a sample
+  presented as the population, an uncited number
+- Config/infra: applied but not effective (cached, wrong scope,
+  overridden elsewhere)
+
+Two checks belong on every list:
+
+- Difficulty displacement: the hard part was moved, not solved — into a
+  TODO helper, an assumed dependency, a manual step in the report, or a
+  quietly weakened criterion. Have the reviewer answer: where did the
+  original difficulty go?
+- Goal substitution: an artifact matching a REJECTED-DELIVERABLES entry
+  is FAIL, even when every DONE-CRITERION nominally passes.
 
 ## Scale rigor to the ask
 

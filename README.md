@@ -14,7 +14,8 @@ makes the agent:
 1. Decide first whether a change was requested at all — a described
    problem gets an assessment, not a fix
 2. Write a task contract (GOAL / CONSTRAINTS / DONE-CRITERIA / CHECK /
-   NON-GOALS / RISKIEST-ASSUMPTION) before any mutating tool call
+   NON-GOALS / REJECTED-DELIVERABLES / RISKIEST-ASSUMPTION) before any
+   mutating tool call
 3. Decompose work by independence, delegate parallel workstreams
    (falling back to batched parallel `Agent` calls when `TeamCreate` is
    absent), and check the riskiest assumption first while invalidation
@@ -24,8 +25,9 @@ makes the agent:
    resume, and verify at intervals on long runs so failures surface
    while they are cheap
 5. Verify completion through a fresh-context reviewer that sees only the
-   DONE-CRITERIA and artifacts, never the working narrative — scaling to
-   majority-vote independent reviewers for audit-grade work
+   acceptance surface (DONE-CRITERIA, REJECTED-DELIVERABLES, a domain
+   failure-mode checklist) and artifacts, never the working narrative —
+   scaling to majority-vote independent reviewers for audit-grade work
 6. Report by re-grounding: outcome first, evidence per criterion
 7. Keep lessons in a curated, committed `.claude/lessons/` store (update
    over duplicate, delete what proves wrong) and, with explicit user
@@ -155,6 +157,11 @@ Comparative sources behind later revisions:
   committed `.claude/lessons/` directory (per the prompting guide's
   memory-system guidance), kept reviewed so it cannot silently go
   stale.
+- OpenAI, [prompt used for "A Proof of the Cycle Double Cover Conjecture"](https://cdn.openai.com/pdf/04d1d1e4-bc75-476a-97cf-49055cd98d31/cdc_prompt.pdf)
+  — the orchestration prompt behind the July 2026 CDC proof claim;
+  origin of v0.6.0's REJECTED-DELIVERABLES contract field (enumerate
+  success-shaped non-solutions), the domain failure-mode checklist and
+  its difficulty-displacement check, and delegation search hygiene.
 
 ## License
 
