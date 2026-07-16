@@ -38,6 +38,9 @@ Every delegation prompt must carry, in this order:
    why the task is being done and who consumes the result. Members do
    not see your conversation; this is their only source of intent.
 2. SCOPE — this workstream's own goal and its own DONE-CRITERIA.
+   State the outcome it must reach and let the member choose the path;
+   prescribe concrete steps only where a specific method is a hard
+   requirement, not out of habit.
 3. BOUNDARIES — files/directories it may modify; everything else is
    read-only. Name them explicitly.
 4. TOOLS — the tools, commands, and sources to prefer or avoid, when

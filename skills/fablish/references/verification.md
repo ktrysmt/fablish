@@ -12,6 +12,11 @@ work is done. Preference order:
 3. Rubric review: only when nothing executable exists (docs, designs,
    analyses)
 
+When full validation is too expensive to run, a minimal smoke test that
+exercises the changed path beats skipping the check; record in the
+checkpoint which validation was reduced, so a narrowed check never
+reads as a full one.
+
 If the changed behavior has no test coverage and adding a check is
 cheap, add it as part of the work — it becomes a DONE-CRITERION.
 

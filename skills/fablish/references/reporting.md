@@ -14,7 +14,9 @@ Order:
    keeping its VERIFIED / REASONED / ASSUMED label
 3. Autonomous decisions — minor choices you made under the
    minor-choice rule: what you picked and why
-4. Open items — what failed, what was skipped, what needs the user
+4. Open items — what failed, what was skipped, what needs the user.
+   For a failed DONE-CRITERION, name the precise remaining gap — the
+   specific unmet condition — not a general "did not work"
 
 ## Prohibitions
 

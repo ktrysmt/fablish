@@ -135,7 +135,9 @@ self-critique.
 Scale rigor to the stakes: one reviewer by default, independent
 majority-vote reviewers for audit-grade or hard-to-reverse work.
 Iterate until every criterion passes, or state precisely which criteria
-fail and why.
+fail and why. Resolve in the fewest useful verification loops, but never
+let loop-minimization outrank correctness or required evidence: skipping
+a check to save a loop is not completion.
 
 Details and the rubric template: `references/verification.md`
 
