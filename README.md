@@ -161,7 +161,23 @@ Comparative sources behind later revisions:
   — the orchestration prompt behind the July 2026 CDC proof claim;
   origin of v0.6.0's REJECTED-DELIVERABLES contract field (enumerate
   success-shaped non-solutions), the domain failure-mode checklist and
-  its difficulty-displacement check, and delegation search hygiene.
+  its difficulty-displacement check, and delegation search hygiene. The
+  exact-remaining-gap reporting rule (report the strongest rigorously
+  proved derivation and its exact remaining gap) is a later refinement
+  drawn from the same prompt. Its unbounded-persistence stance ("do not
+  give up", spend hours before returning) is deliberately not adopted:
+  fablish caps the iterate loop and treats a precise failure report as a
+  valid outcome.
+- OpenAI, [GPT-5.6 prompting guide](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6)
+  — a general prompting guide surveyed for reinforcements that hold
+  independent of provider: outcome-first delegation (describe the
+  destination, not every step), a cost-scaled minimal smoke test when
+  full validation is too expensive, and the loop-minimization guard
+  (fewest useful loops, but correctness and required evidence outrank
+  loop count). Its provider-specific parts — reasoning-effort tiers,
+  programmatic tool calling — were left out. Much of the rest merely
+  confirmed existing design (sparse progress updates, adversarial
+  fresh-context review, conclusion-first reporting).
 
 ## License
 
